@@ -36,6 +36,11 @@ export default function HomePage() {
             providers={[]}
           />
         </div>
+        <div className="flex gap-4 mb-6">
+  <a href="/" className="underline">Mecze</a>
+  <a href="/ranking" className="underline">Ranking</a>
+  <a href="/admin" className="underline">Admin</a>
+</div>
       </main>
     )
   }
