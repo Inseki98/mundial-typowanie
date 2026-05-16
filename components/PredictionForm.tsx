@@ -23,7 +23,7 @@ export default function PredictionForm({
   }
 
   return (
-    <div className="bg-white rounded-xl p-6 shadow mb-4">
+    <div className="rounded-2xl shadow-xl bg-white/10 backdrop-blur border border-white/10">
       <div className="flex justify-between items-center">
         <div className="font-bold text-lg">
           {match.home_team}
@@ -60,7 +60,7 @@ export default function PredictionForm({
 
       <button
         onClick={savePrediction}
-        className="mt-4 bg-black text-white px-4 py-2 rounded-lg"
+        className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl p-3 font-bold"
         disabled={isLocked}
       >
         Zapisz typ

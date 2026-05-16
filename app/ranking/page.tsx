@@ -6,10 +6,24 @@ import { supabase } from '@/lib/supabase'
 export default function RankingPage() {
   const [ranking, setRanking] = useState<any[]>([])
 
-  useEffect(() => {
-    fetchRanking()
-  }, [])
+useEffect(() => {
+  fetchRanking()
 
+  const channel = supabase
+    .channel('ranking-live')
+    .on('postgres_changes', {
+      event: '*',
+      schema: 'public',
+      table: 'predictions'
+    }, () => {
+      fetchRanking()
+    })
+    .subscribe()
+
+  return () => {
+    supabase.removeChannel(channel)
+  }
+}, [])
   async function fetchRanking() {
     const { data } = await supabase
       .from('predictions')
@@ -41,7 +55,7 @@ export default function RankingPage() {
 
   return (
     <main className="min-h-screen bg-gray-100 p-8">
-      <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow p-8">
+      <div className="rounded-2xl shadow-xl bg-white/10 backdrop-blur border border-white/10">
         <h1 className="text-4xl font-bold mb-8">
           Ranking
         </h1>

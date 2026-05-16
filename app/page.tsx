@@ -60,6 +60,11 @@ export default function HomePage() {
           Zalogowany jako: {session.user.email}
         </p>
       </div>
+      <div className="fixed bottom-0 left-0 right-0 bg-black p-3 flex justify-around">
+  <a href="/">Mecze</a>
+  <a href="/ranking">Ranking</a>
+  <a href="/admin">Admin</a>
+</div>
     </main>
   )
 }

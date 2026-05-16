@@ -42,7 +42,7 @@ export default function AdminPage() {
 
   return (
     <main className="min-h-screen bg-gray-100 p-8">
-      <div className="max-w-xl mx-auto bg-white p-8 rounded-xl shadow">
+      <div className="rounded-2xl shadow-xl bg-white/10 backdrop-blur border border-white/10">
         <h1 className="text-3xl font-bold mb-6">
           Panel Admina
         </h1>
@@ -70,10 +70,19 @@ export default function AdminPage() {
 
         <button
           onClick={addMatch}
-          className="w-full bg-black text-white p-3 rounded"
+          className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl p-3 font-bold"
         >
           Dodaj mecz
         </button>
+        <button
+  onClick={async () => {
+    await fetch('/api/import', { method: 'POST' })
+    alert('Import wykonany')
+  }}
+  className="bg-green-600 text-white p-2 rounded mt-4"
+>
+  Import Mundialu
+</button>
       </div>
     </main>
   )

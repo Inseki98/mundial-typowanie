@@ -11,7 +11,7 @@ export default function Ranking() {
   ]
 
   return (
-    <div className="bg-white rounded-xl p-6 shadow mt-8">
+    <div className="rounded-2xl shadow-xl bg-white/10 backdrop-blur border border-white/10">
       <h2 className="text-2xl font-bold mb-4">
         Ranking
       </h2>
