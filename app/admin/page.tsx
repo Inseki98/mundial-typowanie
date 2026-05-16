@@ -20,7 +20,8 @@ export default function AdminPage() {
     return <div className="p-8">Musisz być zalogowany</div>
   }
 
-  const isAdmin = session.user.email === process.env.NEXT_PUBLIC_ADMIN_EMAIL
+  const ADMIN_EMAIL = "adziokks@gmail.com"
+  const isAdmin = session.user.email === ADMIN_EMAIL
 
   if (!isAdmin) {
     return <div className="p-8 text-red-500">Brak dostępu</div>
