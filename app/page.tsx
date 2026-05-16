@@ -36,11 +36,6 @@ export default function HomePage() {
             providers={[]}
           />
         </div>
-        <div className="flex gap-4 mb-6">
-  <a href="/" className="underline">Mecze</a>
-  <a href="/ranking" className="underline">Ranking</a>
-  <a href="/admin" className="underline">Admin</a>
-</div>
       </main>
     )
   }
@@ -52,7 +47,11 @@ export default function HomePage() {
           <h1 className="text-4xl font-bold">
             Typowanie Mundialu
           </h1>
-
+        <div style={{ display: "flex", gap: 12, marginBottom: 20 }}>
+        <a href="/">Mecze</a>
+        <a href="/ranking">Ranking</a>
+        <a href="/admin">Admin</a>
+        </div>
           <button
             onClick={() => supabase.auth.signOut()}
             className="bg-red-500 text-white px-4 py-2 rounded-lg"
@@ -65,11 +64,6 @@ export default function HomePage() {
           Zalogowany jako: {session.user.email}
         </p>
       </div>
-      <div className="fixed bottom-0 left-0 right-0 bg-black p-3 flex justify-around">
-  <a href="/">Mecze</a>
-  <a href="/ranking">Ranking</a>
-  <a href="/admin">Admin</a>
-</div>
     </main>
   )
 }
