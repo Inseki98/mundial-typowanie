@@ -2,78 +2,64 @@
 
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
-import Ranking from '@/components/Ranking'
-
-interface Match {
-  id: string
-  home_team: string
-  away_team: string
-  match_date: string
-}
+import { Auth } from '@supabase/auth-ui-react'
+import { ThemeSupa } from '@supabase/auth-ui-shared'
 
 export default function HomePage() {
-  const [matches, setMatches] = useState<Match[]>([])
+  const [session, setSession] = useState<any>(null)
 
   useEffect(() => {
-    fetchMatches()
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session)
+    })
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+    })
+
+    return () => subscription.unsubscribe()
   }, [])
 
-  async function fetchMatches() {
-    const { data } = await supabase
-      .from('matches')
-      .select('*')
-      .order('match_date')
+  if (!session) {
+    return (
+      <main className="min-h-screen flex items-center justify-center bg-gray-100 p-8">
+        <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
+          <h1 className="text-3xl font-bold mb-6 text-center">
+            Typowanie Mundialu
+          </h1>
 
-    if (data) {
-      setMatches(data)
-    }
+          <Auth
+            supabaseClient={supabase}
+            appearance={{ theme: ThemeSupa }}
+            providers={[]}
+          />
+        </div>
+      </main>
+    )
   }
 
   return (
     <main className="min-h-screen bg-gray-100 p-8">
-      <div className="max-w-3xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8">
-          Typowanie Mundialu
-        </h1>
+      <div className="max-w-4xl mx-auto">
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-4xl font-bold">
+            Typowanie Mundialu
+          </h1>
 
-        <div className="space-y-4">
-          {matches.map((match) => (
-            <div
-              key={match.id}
-              className="bg-white p-6 rounded-xl shadow"
-            >
-              <div className="flex items-center justify-between">
-                <div className="text-xl font-semibold">
-                  {match.home_team}
-                </div>
-
-                <div className="flex gap-2 items-center">
-                  <input
-                    type="number"
-                    className="w-16 border rounded p-2 text-center"
-                  />
-
-                  <span>:</span>
-
-                  <input
-                    type="number"
-                    className="w-16 border rounded p-2 text-center"
-                  />
-                </div>
-
-                <div className="text-xl font-semibold">
-                  {match.away_team}
-                </div>
-              </div>
-
-              <div className="mt-4 text-gray-500">
-                {new Date(match.match_date).toLocaleString()}
-              </div>
-            </div>
-          ))}
+          <button
+            onClick={() => supabase.auth.signOut()}
+            className="bg-red-500 text-white px-4 py-2 rounded-lg"
+          >
+            Wyloguj
+          </button>
         </div>
+
+        <p className="text-lg">
+          Zalogowany jako: {session.user.email}
+        </p>
       </div>
     </main>
   )
 }
-<Ranking />
