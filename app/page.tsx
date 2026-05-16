@@ -48,7 +48,7 @@ export default function HomePage() {
             Typowanie Mundialu
           </h1>
         <div style={{ display: "flex", gap: 12, marginBottom: 20 }}>
-        <a href="/">Mecze</a>
+        <a href="/mecze">Mecze</a>
         <a href="/ranking">Ranking</a>
         <a href="/admin">Admin</a>
         </div>
